@@ -1,0 +1,11 @@
+x Option: Migrate don't migrate db
+Elastic Search
+Check Docker Best Practice
+x Moveable site paths
+/srv/docker/wagtail/ path
+Hide shell files
+Nginx serve several sites
+Extra DB config, UTF8 etc.
+Django env vars for docker-compose
+Reverse notation siteslist, not listsites?
+Node JS

@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+
+import argparse
+import subprocess
+import sys
+
+
+if __name__ == "__main__":
+    
+    parser = argparse.ArgumentParser(description="serve a Django/Wagtail site")
+
+    parser.add_argument(
+        '--site-location',
+        type=str,
+        default="/srv",
+        help="used to position the site codebase",
+        )
+        
+    parser.add_argument(
+        'sitenames',
+        nargs='*',
+        #metavar='N'
+        type=str,
+        help="identify directories to serve",
+        )
+        
+
+    # Only parse for known args, then ditch unknown argument tuple.
+    # In use accepts other arguments, matching prefixes,
+    # but we can ignore them.
+    args = parser.parse_known_args()
+    args = args[0]
+
+    
+    # Ensure necessary details
+    if not args.sitenames: 
+        sitename = input("Please, sitename?\n> ")
+        args.sitenames = [sitename]
+    
+    
+    for siteName in args.sitenames:
+        subprocess.call([
+            "runserver.sh", 
+            args.site_location,
+            siteName
+            ])

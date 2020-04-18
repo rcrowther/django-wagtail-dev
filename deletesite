@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+
+import argparse
+import os
+import subprocess
+
+
+if __name__ == "__main__":
+    
+    parser = argparse.ArgumentParser(description="delete a site")
+
+    parser.add_argument(
+        '--site-location',
+        type=str,
+        default="/srv",
+        help="used to position the site codebase",
+        )
+
+    parser.add_argument(
+        '--site-name',
+        type=str,
+        help="identify directory to delete",
+        )
+      
+    # Only parse for known args, then ditch unknown argument tuple.
+    # In use accepts other arguments, matching prefixes,
+    # but we can ignore them.
+    args = parser.parse_known_args()
+    args = args[0]
+    
+    print(str(args))
+    # Ensure necessary details
+    if not args.site_name: 
+        args.site_name = input("Delete site, no name?\n> ")
+    
+    subprocess.call([
+        "deletesite.sh", 
+        args.site_location,
+        args.site_name
+        ])

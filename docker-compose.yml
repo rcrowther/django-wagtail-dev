@@ -1,0 +1,68 @@
+# docker-compose up -d
+# docker-compose down -d
+version: '3.3'
+
+
+        
+services:
+
+    postgres1:
+      image: postgres:11-alpine
+      environment:
+        POSTGRES_PASSWORD: adminPassword
+        # Only used on first boot of an uninitialed database
+        # POSTGRES_USER: admin 
+        # POSTGRES_DB: soundsense
+      restart: always
+      ports: 
+        - "5432:5432"
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+      networks:
+        - postgres1_network
+        
+    wagtailapp:
+      image: wagtail-dev:2.8
+      # if DB added
+      depends_on:
+        - postgres1
+      # remove if server added
+      # ports:
+        # - 8000:8000
+      restart: always
+      #environment:
+        #DEBUG=True
+        #STAGE=local
+      entrypoint: ["runserver", "siteName"]
+      volumes:
+        - type: bind
+          source: /srv
+          target: /srv
+      networks: 
+        # if server added
+        nginx_network:           
+        # if DB added
+        postgres1_network:
+                          
+    nginx:
+      image: nginx:1.17
+      depends_on:
+        - wagtailapp
+      ports:
+        - 8000:80
+      volumes:
+        - /cfg/docker/nginx:/etc/nginx/conf.d
+      networks:
+        - nginx_network
+
+# if DB added
+volumes:
+   postgres_data: 
+
+networks:
+    # if server added
+    nginx_network:
+      driver: bridge
+    # if DB added
+    postgres1_network:
+      driver: bridge

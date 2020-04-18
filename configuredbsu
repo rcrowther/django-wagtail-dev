@@ -1,0 +1,114 @@
+#!/usr/bin/env python3
+
+import argparse
+import os
+import subprocess
+import sys
+
+
+if __name__ == "__main__":
+    
+    parser = argparse.ArgumentParser(description="configure a Wagtail site for an external database.")
+    parser.epilog = "A database must exist, using the same name as the sitename. Creates the configuration, restarts the server, migrates, configures the superuser."
+
+    parser.add_argument(
+        '--site-location',
+        type=str,
+        default="/srv",
+        help="used to position the site codebase",
+        )
+
+    parser.add_argument(
+        '--site-name',
+        type=str,
+        help="used in directory names and site admin",
+        )
+        
+    parser.add_argument(
+        '--db-adminuser',
+        type=str,
+        help="for database admin')",
+        )
+
+    parser.add_argument(
+        '--db-adminpassword',
+        type=str,
+        help="for databbase admin",
+        )
+
+    parser.add_argument(
+        '--site-adminuser',
+        type=str,
+        help="for site admin')",
+        )
+
+    parser.add_argument(
+        '--site-adminpassword',
+        type=str,
+        help="for site admin",
+        )
+    parser.add_argument(
+        '--admin-email',
+        type=str,
+        help="for Wagtail site admin",
+        )
+        
+    parser.add_argument(
+        '--host',
+        type=str,
+        help="for initial database name (in Postgre)",
+        )
+        
+        
+    # Only parse for known args, then ditch unknown argument tuple.
+    # In use accepts other arguments, matching prefixes,
+    # but we can ignore them.
+    args = parser.parse_known_args()
+    args = args[0]
+
+    
+    # Missing details
+    argIsNone = [k for k,v in vars(args).items() if not v ]
+    if (len(argIsNone) > 0):
+        print ("Information needed: {}".format(", ".join(argIsNone)))
+    
+    # Ensure necessary details
+    if not args.site_name: 
+        args.site_name = input("No site name?\n> ")
+    if not args.db_adminuser: 
+        args.db_adminuser = input("DB admin user most helpful\n> ")
+    if not args.db_adminpassword: 
+        args.db_adminpassword = input("Oh, you need a DB admin password, you must!\n> ")
+    if not args.site_adminuser: 
+        args.site_adminuser = input("Site admin user most helpful\n> ")
+    if not args.site_adminpassword: 
+        args.site_adminpassword = input("Oh, you need a site admin password, you must!\n> ")
+    if not args.admin_email: 
+        args.admin_email = input("Admin email much loved by Django\n> ")
+    if not args.host: 
+        args.host = input("Host make talk\n> ")
+
+
+    subprocess.call([
+        "configuredb.sh",
+        args.site_location, 
+        args.site_name, 
+        args.db_adminuser, 
+        args.db_adminpassword, 
+        args.host,
+        ])
+        
+    subprocess.call([
+        "migratesite.sh",
+        args.site_location, 
+        args.site_name
+        ])
+        
+    subprocess.call([
+        "createsuperuser.sh",
+        args.site_location, 
+        args.site_name, 
+        args.site_adminuser, 
+        args.site_adminpassword, 
+        args.admin_email,
+        ])

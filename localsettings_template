@@ -1,0 +1,19 @@
+# These settings make no effect unless USE_I18N = true
+# (which it is by default in Wagtail)
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
+
+# USE_I18N = True
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'USER': 'dbAdminUser',
+        'PASSWORD': 'dbAdminPassword',
+        'NAME': 'dbInitName',
+         # Note this host! Declared in DockerCompose.
+        'HOST': 'dbHostName', 
+        'PORT': '5432',
+    }
+}

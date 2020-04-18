@@ -1,0 +1,14 @@
+mkdir -p ./doop/doop/settings
+touch ./doop/manage.py
+# createsite
+./createsite --site-location '.' --site-name doop --admin-user admin --admin-password lemmie --admin-email bob@gmail.com
+# deletesite
+./deletesite --site-location '.' doop foil
+# listsites
+./listsites --site-location '.'
+# runserver
+./runserver --site-location '.' doop
+# configuredb
+./configuredb --site-location '.' --site-name doop --admin-user dbadmin --admin-password dblemmie --host postgres1
+# newsite
+./newsite.sh '.' doop admin lemmie bob@gmail.com 
