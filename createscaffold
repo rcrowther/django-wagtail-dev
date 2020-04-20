@@ -19,7 +19,7 @@ if __name__ == "__main__":
         )
 
     parser.add_argument(
-        '--site-name',
+        'sitename',
         type=str,
         help="used in directory names and site admin",
         )
@@ -38,14 +38,14 @@ if __name__ == "__main__":
         print ("Information needed: {}".format(", ".join(argIsNone)))
     
     # Ensure necessary details
-    if not args.site_name: 
-        args.site_name = input("New site, no name?\n> ")
+    if not args.sitename: 
+        args.sitename = input("New site, no name?\n> ")
 
 
     subprocess.call([
         "createscaffold.sh",
         args.site_location, 
-        args.site_name,
+        args.sitename,
         "django"
         ])
 

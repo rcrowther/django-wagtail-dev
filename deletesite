@@ -17,7 +17,7 @@ if __name__ == "__main__":
         )
 
     parser.add_argument(
-        '--site-name',
+        'sitename',
         type=str,
         help="identify directory to delete",
         )
@@ -30,11 +30,11 @@ if __name__ == "__main__":
     
     print(str(args))
     # Ensure necessary details
-    if not args.site_name: 
-        args.site_name = input("Delete site, no name?\n> ")
+    if not args.sitename: 
+        args.sitename = input("Delete site, no name?\n> ")
     
     subprocess.call([
         "deletesite.sh", 
         args.site_location,
-        args.site_name
+        args.sitename
         ])

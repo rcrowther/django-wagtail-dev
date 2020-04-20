@@ -20,7 +20,7 @@ if __name__ == "__main__":
         )
 
     parser.add_argument(
-        '--site-name',
+        'sitename',
         type=str,
         help="used in directory names and site admin",
         )
@@ -57,8 +57,8 @@ if __name__ == "__main__":
         print ("Information needed: {}".format(", ".join(argIsNone)))
     
     # Ensure necessary details
-    if not args.site_name: 
-        args.site_name = input("New site, no name?\n> ")
+    if not args.sitename: 
+        args.sitename = input("New site, no name?\n> ")
     if not args.admin_user: 
         args.admin_user = input("Site admin user most helpful\n> ")
     if not args.admin_password: 
@@ -77,13 +77,13 @@ if __name__ == "__main__":
     subprocess.call([
         "migratesite.sh",
         args.site_location, 
-        args.site_name
+        args.sitename
         ])
         
     subprocess.call([
         "createsuperuser.sh",
         args.site_location, 
-        args.site_name, 
+        args.sitename, 
         args.admin_user, 
         args.admin_password, 
         args.admin_email,

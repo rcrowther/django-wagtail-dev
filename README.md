@@ -7,7 +7,7 @@ Find out more at the [Django project](https://docs.djangoproject.com) and [Wagta
    
 <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Citrine_wagtail_I_IMG_8326.jpg" width="128" height="128" alt="A Wagtail looks West"/>
 
-<h2 style="font-weight:bolder; font-color:#44B78B;">Django</h2>
+<h2 style="font-weight:bolder; color:#44B78B;">Django</h2>
 
 
 
@@ -120,7 +120,14 @@ That's it. Start one or many sites.
 
 (http://localhost:8000/)
 
-Start work.
+Start work. The server terminal will block on it's process, so start another terminal into the container,
+
+    docker exec -it containerName /bin/bash
+
+Also handy,
+
+    sudo chown -R yourHostUsername siteTopDirectory
+
 
 ## I have a site!
 Put it in `/srv` on the host machine. The image uses the magic of Gunicon. Unless you fiddled with the WSGI config, it should run.

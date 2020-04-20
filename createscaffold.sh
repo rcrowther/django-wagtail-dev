@@ -24,5 +24,5 @@ fi
 if [[ "$type" = 'Wagtail' ]]; then
 wagtail start "$site_name" || { (>&2 echo 'Error: no wagtail spotted') ; exit 1; } 
 else
-django-admin startproject "$site_name" || { (>&2 echo 'Error: django failed') ; exit 1; } 
+django-admin startproject "$site_name" || { (>&2 echo 'Error: Django failed') ; exit 1; } 
 fi

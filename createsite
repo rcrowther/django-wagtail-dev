@@ -8,8 +8,8 @@ import sys
 
 if __name__ == "__main__":
     
-    parser = argparse.ArgumentParser(description="create a Wagtail site")
-    parser.epilog = "Creates a Wagtail site, migrates, inserts superuser. External databases require a database with the same name as the site???"
+    parser = argparse.ArgumentParser(description="create a Django site")
+    parser.epilog = "Creates a Django site, migrates, inserts superuser. External databases require a database with the same name as the site???"
 
 
     parser.add_argument(
@@ -20,7 +20,7 @@ if __name__ == "__main__":
         )
 
     parser.add_argument(
-        '--site-name',
+        'sitename',
         type=str,
         help="used in directory names and site admin",
         )
@@ -50,15 +50,15 @@ if __name__ == "__main__":
     args = parser.parse_known_args()
     args = args[0]
 
-    
+    print(str(args))
     # Missing details
     argIsNone = [k for k,v in vars(args).items() if not v ]
     if (len(argIsNone) > 0):
         print ("Information needed: {}".format(", ".join(argIsNone)))
     
     # Ensure necessary details
-    if not args.site_name: 
-        args.site_name = input("New site, no name?\n> ")
+    if not args.sitename: 
+        args.sitename = input("New site, no name?\n> ")
     if not args.admin_user: 
         args.admin_user = input("Site admin user most helpful\n> ")
     if not args.admin_password: 
@@ -70,20 +70,20 @@ if __name__ == "__main__":
     subprocess.call([
         "createscaffold.sh",
         args.site_location, 
-        args.site_name,
+        args.sitename,
         "django"
         ])
 
     subprocess.call([
         "migratesite.sh",
         args.site_location, 
-        args.site_name
+        args.sitename
         ])
         
     subprocess.call([
         "createsuperuser.sh",
         args.site_location, 
-        args.site_name, 
+        args.sitename, 
         args.admin_user, 
         args.admin_password, 
         args.admin_email,
