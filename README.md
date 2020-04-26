@@ -85,11 +85,11 @@ Note we do not use docker-compose. Without a running process, the container will
 
 The command includes host-mount and host-port bindings. You can change these, for example to use Docker volumes and a different host port,
 
-    docker run -mount type=volume,source=/var/www/data,target=/srv -p8100:8000 -it wagtail-dev:2.8 /bin/bash
+    docker run --mount type=volume,source=/var/www/data,target=/srv -p8100:8000 -it dw-dev:2.8 /bin/bash
 
 If you need to restart the container,
 
-    docker start containerName
+    docker start containerName &
     docker exec -it containerName /bin/bash
     ./runserver.sh siteName
 
