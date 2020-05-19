@@ -122,7 +122,7 @@ That's it. Start one or many sites.
 
 Start work. The server terminal will block on it's process, so start another terminal into the container,
 
-    docker exec -it containerName /bin/bash
+    docker exec -it dw-dev /bin/bash
 
 Also handy,
 
