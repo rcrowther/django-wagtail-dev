@@ -25,6 +25,8 @@ FROM production as dev
 # Install postgres-client so 'manage.py dbshell' works with external Postgres
 RUN apt-get update; apt-get install -y --no-install-recommends postgresql-client-11; apt-get install sqlite3
 RUN pip install inotify
+RUN pip install django-silk
+RUN pip install coverage
 # pip install django-extensions
 # Add create and run scripts, and dependencies to support them.
 RUN mkdir -p /script/wagtail

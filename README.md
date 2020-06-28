@@ -1,7 +1,7 @@
 # What are Django and Wagtail?
 Django is a web framework. The word '''framework' commonly means you must use code to produce webpages.
 
-Wagtail is a Content Management System built on top of Django. The words ''Content Management System' commonly mean, ''a system that generate webpages by providing visual administration and entry for non-users'. Wagtail is notable because in many places it must still be coded to produce these effects. But it adds extra code to Django to handle the visual administrative tasks.
+Wagtail is a Content Management System built on top of Django. The words ''Content Management System' commonly mean, ''a system that generate webpages by providing visual administration and entry for non-users'. Wagtail is notable because in many places it must still be coded to produce these effects. But it adds extra code to Django to generate prebuilt 'page' models, and handles visual administrative tasks.
 
 Find out more at the [Django project](https://docs.djangoproject.com) and [Wagtail](https://wagtail.io) websites.
    
@@ -57,10 +57,10 @@ Use the DockerFile,
 
 For production (leaves out dev scripts and dependencies),
 
-    docker build --target production -t wagtail:2.8 .
+    docker build --target production -t dw:2.8 .
 
 <dl>
-<dt>`-t`</dt><dd> tag the image as `wagtail`, as it is a general 'handles Wagtail' container. </dd>
+<dt>`-t`</dt><dd> tag the image as `dw`, as it is a general 'handles Django/Wagtail' container. </dd>
 <dl>
 
 
@@ -317,7 +317,7 @@ The environment variables are configuration for Postgres---no need for an extern
 
 <dl>
 <dt>POSTGRES_PASSWORD</dt>
-<dd>Don't make it complicated! Postgres and it's support code can be fussy about non-alphanumeric characters, and may handle escapes. You should make the password long---it's a critical security measure on your site.</dd> 
+<dd>Don't make it complicated! Postgres and it's support code can be fussy about non-alphanumeric characters, and may handle escapes. You should make the password long---it's a critical security measure.</dd> 
 <dt>POSTGRES_USER</dt>
 <dd>Without this, there is a default??? </dd>
 <dt>POSTGRES_DB</dt>
@@ -463,6 +463,8 @@ Wagtail is not version locked, relies on Docker Python and Pip.
 - [PSQL Client](https://www.postgresql.org/docs/12/app-psql.html)
 - Sqlite3 (and so the CL interface)
 - django-extensions
+- [coverage]{https://coverage.readthedocs.io/en/coverage-5.1/}
+- [django-silk](https://github.com/jazzband/django-silk)
 - scripts
 
 Nothing is configured beyond Wagtail. If Wagtail doesn't pull the code in, then you need to configure e.g. for WagtailMenus.
