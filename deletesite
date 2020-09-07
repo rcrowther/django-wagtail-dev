@@ -28,7 +28,6 @@ if __name__ == "__main__":
     args = parser.parse_known_args()
     args = args[0]
     
-    print(str(args))
     # Ensure necessary details
     if not args.sitename: 
         args.sitename = input("Delete site, no name?\n> ")

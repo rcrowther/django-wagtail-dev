@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+
+import argparse
+import os
+import subprocess
+import sys
+
+
+if __name__ == "__main__":
+    
+    parser = argparse.ArgumentParser(description="configure a Django site to be weblike.")
+    parser.epilog = "Spits settings into staging, provides base templates, and some common directories."
+
+    parser.add_argument(
+        '--site-location',
+        type=str,
+        default="/srv",
+        help="used to position the site codebase",
+        )
+
+    parser.add_argument(
+        '--site-name',
+        type=str,
+        help="used in directory names and site admin",
+        )
+        
+        
+    # Only parse for known args, then ditch unknown argument tuple.
+    # In use accepts other arguments, matching prefixes,
+    # but we can ignore them.
+    args = parser.parse_known_args()
+    args = args[0]
+
+    
+    # Missing details
+    argIsNone = [k for k,v in vars(args).items() if not v ]
+    if (len(argIsNone) > 0):
+        print ("Information needed: {}".format(", ".join(argIsNone)))
+    
+    # Ensure necessary details
+    if not args.site_name: 
+        args.site_name = input("No site name?\n> ")
+
+    print(str(args))
+
+    subprocess.call([
+        "django_siteconv.sh",
+        args.site_location, 
+        args.site_name,
+        ])

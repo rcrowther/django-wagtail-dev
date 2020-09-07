@@ -104,6 +104,10 @@ Build a site,
 
     createsite
 
+Convert the basic Django site to something more like a website. Alters settings so they are staged, adds some common folders aand files, and basic templates,
+
+    convsite
+
 Serve the site (continuous loading),
 
     runserver siteName
