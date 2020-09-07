@@ -34,3 +34,4 @@ if settings.DEBUG:
 urlpatterns = urlpatterns + [
     # For anything not caught by a more specific rule above, drop to this
     # path(),
+]

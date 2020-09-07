@@ -8,6 +8,7 @@ site_name=$2
 
 script_dir="$(dirname "$(readlink -f "$0")")"
 
+# To project...
 cd "$site_pos"
 
 # check if a directory exists
@@ -16,18 +17,18 @@ if [ ! -d "$site_name" ]; then
     exit 1;
 fi
 
-# To project...
-cd '$site_name'
+# Move to site and write data
+cd "$site_name"
 
 # Make a /media directory
-mkdir baseDir/media
+mkdir media
 
 # Set manage settings to the sub-directory settings, not top level
 #rm manage.py
-sed 's/SITENAME/$site_name/g' <$script_dir/site_files/manage.tpl >manage.py
+sed "s/SITENAME/$site_name/g" <$script_dir/site_files/manage.tpl >manage.py
 
 # To project app...
-cd '$site_name'
+cd "$site_name"
 
 # new WSGI  
 #rm wsgi.py
@@ -43,17 +44,17 @@ touch static/css/$site_name.css
 # create sitewide templates
 #NB cant sed to same file
 cp -r $script_dir/site_files/templates templates
-sed 's/SITENAME/$site_name/g' <script_dir/site_files/templates/base.py >templates/base.py
+sed "s/SITENAME/$site_name/g" <$script_dir/site_files/templates/base.html >templates/base.html
 
 # create staged /settings
 #NB cant sed to same file
-#rm settings.py
+rm settings.py
 cp -r $script_dir/site_files/settings settings
-sed 's/SITENAME/$site_name/g' <$script_dir/site_files/settings/base.py >settings/base.py
+sed "s/SITENAME/$site_name/g" <$script_dir/site_files/settings/base.py >settings/base.py
 
 # URLs
 #rm urls.py
-sed 's/SITENAME/$site_name/g' <$script_dir/site_files/urls.tpl >urls.py
+sed "s/SITENAME/$site_name/g" <$script_dir/site_files/urls.tpl >urls.py
 
 
 # done
