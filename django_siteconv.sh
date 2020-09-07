@@ -23,36 +23,37 @@ cd '$site_name'
 mkdir baseDir/media
 
 # Set manage settings to the sub-directory settings, not top level
-rm manage.py
-sed 's/SITENAME/$site_name/g' <site_files/manage.tpl >manage.py
+#rm manage.py
+sed 's/SITENAME/$site_name/g' <$script_dir/site_files/manage.tpl >manage.py
 
 # To project app...
 cd '$site_name'
 
 # new WSGI  
-rm wsgi.py
-sed "s/SITENAME/$site_name/g" <site_files/wsgi.tpl >wsgi.py
+#rm wsgi.py
+sed "s/SITENAME/$site_name/g" <$script_dir/site_files/wsgi.tpl >wsgi.py
 
 # create sidewide /static and populate
 mkdir static
 mkdir static/css
 mkdir static/js
-touch static/js/'$site_name'.js
-touch static/css/'$site_name'.css
+touch static/js/$site_name.js
+touch static/css/$site_name.css
 
 # create sitewide templates
+#NB cant sed to same file
 cp -r $script_dir/site_files/templates templates
-sed 's/SITENAME/$site_name/g' <templates/base.py >templates/base.py
+sed 's/SITENAME/$site_name/g' <script_dir/site_files/templates/base.py >templates/base.py
 
 # create staged /settings
-rm settings.py
+#NB cant sed to same file
+#rm settings.py
 cp -r $script_dir/site_files/settings settings
-sed 's/SITENAME/$site_name/g' <settings/base.py >settings/base.py
+sed 's/SITENAME/$site_name/g' <$script_dir/site_files/settings/base.py >settings/base.py
 
 # URLs
-rm urls.py
-cp $script_dir/urls.tpl urls.py
-sed 's/SITENAME/$site_name/g' <site_files/urls.tpl >urls.py
+#rm urls.py
+sed 's/SITENAME/$site_name/g' <$script_dir/site_files/urls.tpl >urls.py
 
 
 # done
