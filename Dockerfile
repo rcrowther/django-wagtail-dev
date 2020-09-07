@@ -52,5 +52,7 @@ COPY configuredb .
 COPY configuredb.sh .
 COPY localsettings_template .
 COPY configuredbsu .
+COPY site_files/ site_files/
+COPY django_siteconv.sh . 
 WORKDIR /srv
 CMD ["bash"]
